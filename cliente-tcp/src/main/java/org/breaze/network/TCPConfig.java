@@ -2,7 +2,7 @@ package org.breaze.network;
 
 import org.breaze.common.IConfigReader;
 
-public class TCPConfig implements ITCPConfig{
+public class TCPConfig implements ISSLConfig{
     private final IConfigReader configReader;
 
     public TCPConfig(IConfigReader configReader){
@@ -16,5 +16,15 @@ public class TCPConfig implements ITCPConfig{
     @Override
     public int getPort() {
         return configReader.getInt("server.port");
+    }
+
+    @Override
+    public String getTrustStorePath() {
+        return configReader.getString("ssl.truststore.path");
+    }
+
+    @Override
+    public String getTrustStorePassword() {
+        return configReader.getString("ssl.truststore.password");
     }
 }
