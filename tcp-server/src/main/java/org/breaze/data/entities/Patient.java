@@ -28,6 +28,9 @@ public class Patient {
     public String getLastName() { return lastName; }
     public int getAge() { return age; }
     public String getEmail() { return email; }
+    public String getGender() { return gender; }
+    public String getCity() { return city; }
+    public String getCountry() { return country; }
 
     @Override
     public String toString() {

@@ -13,7 +13,7 @@ public class SSLTCPClient implements IMessageService {
 
     @Override
     public String sendMessage(String message) {
-        // Delegamos al SocketFactory
+        // Delegamos a SocketFactory en vez de hacerlo de a uno
         try (Socket socket = SocketFactory.createSSLClientSocket(sslConfig, sslConfig)) {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
             DataInputStream in = new DataInputStream(socket.getInputStream());
@@ -28,7 +28,7 @@ public class SSLTCPClient implements IMessageService {
             System.out.println("[TCP] Respuesta: %s".formatted(response));
             return response;
 
-        } catch (UnknownHostException e) { // Quitamos el '_' para compatibilidad con versiones anteriores de Java
+        } catch (UnknownHostException e) { // Quitamos _ por fallo LOL
             System.out.println("[TCP] Error de host: no se encuentra el host: %s".formatted(sslConfig.getHost()));
             return "ERROR_HOST_DESCONOCIDO";
         } catch (IOException e) {

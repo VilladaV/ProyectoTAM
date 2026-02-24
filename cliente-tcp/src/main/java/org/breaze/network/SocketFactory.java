@@ -2,6 +2,8 @@ package org.breaze.network;
 
 import javax.net.ssl.*;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.SecureRandom;
 
@@ -14,9 +16,13 @@ public class SocketFactory {
 
     private static SSLContext createSSLContext(ISSLConfig config) throws Exception {
         KeyStore trustStore = KeyStore.getInstance("PKCS12");
-        // AQUÍ EL CAMBIO: Usamos los nombres exactos de tu interfaz de cliente (TrustStore)
-        try (FileInputStream fis = new FileInputStream(config.getTrustStorePath())) {
-            trustStore.load(fis, config.getTrustStorePassword().toCharArray());
+        // AQUI CAMBIOOo! Usamos nombres exactos interfaz de cliente osea TrustStore
+        // En el SocketFactory del CLIENTE
+        try (InputStream is = SocketFactory.class.getClassLoader().getResourceAsStream(config.getTrustStorePath())) {
+            if (is == null) {
+                throw new FileNotFoundException("No se encontró el certificado: " + config.getTrustStorePath());
+            }
+            trustStore.load(is, config.getTrustStorePassword().toCharArray());
         }
 
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());

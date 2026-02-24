@@ -9,7 +9,7 @@ public class PropertiesManager  implements IConfigReader{
     public PropertiesManager(String fileName){
         try(InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)){
             if(is == null){
-                throw  new RuntimeException("Error: no se encontró el archivo");
+                throw  new RuntimeException("Error no se encontró el archivo");
             }
             props.load(is);
             System.out.println("Archivo %s cargado correctamente".formatted(fileName));

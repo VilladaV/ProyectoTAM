@@ -13,19 +13,19 @@ public class CSVDiagnosticRepository implements IDiagnosticRepository {
 
     @Override
     public void saveResult(String id, List<String> results) throws IOException {
-        // 1. Crear la ruta de la carpeta del paciente si no existe
+        // Crea la ruta de la carpeta del paciente si no existe
         File patientFolder = new File(baseDir, id);
         if (!patientFolder.exists()) {
             patientFolder.mkdirs();
         }
 
-        // 2. Definir el archivo de diagnóstico dentro de esa carpeta
+        // Defini el archivo de diagnóstico dentro de esa carpeta
         // Se puede usar un nombre fijo o basado en la fecha para no sobrescribir
         File diagnosticFile = new File(patientFolder, "diagnostico.csv");
 
         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(diagnosticFile, true)))) {
             for (String line : results) {
-                // Formato requerido: virus, posicion_inicio, posicion_fin [cite: 220]
+                // Formato virus, posicion_inicio, posicion_fin
                 out.println(line);
             }
         }

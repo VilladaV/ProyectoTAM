@@ -11,7 +11,7 @@ public class SimpleMessageProcessor implements IMessageProcessor {
     private final GenomicService genomicService;
     private final IPatientRepository patientRepo;
 
-    // Inyección de dependencias por constructor (SOLID)
+    // Inyección de dependencias por constructor solid
     public SimpleMessageProcessor(GenomicService genomicService, IPatientRepository patientRepo) {
         this.genomicService = genomicService;
         this.patientRepo = patientRepo;
@@ -28,19 +28,19 @@ public class SimpleMessageProcessor implements IMessageProcessor {
 
         try {
             switch (command) {
-                case "REG": // Formato: REG;id;nombre;apellido;edad;email;genero;ciudad;pais
+                case "REG": // Formato REG;id;nombre;apellido;edad;email;genero;ciudad;pais
                     return registerPatient(parts);
 
-                case "FIND_PATIENT": // Formato: FIND_PATIENT;id
+                case "FIND_PATIENT": // Formato:
                     Patient p = patientRepo.findById(parts[1]);
                     return (p != null) ? "SUCCESS;" + p.toString() : "ERROR: No encontrado";
 
-                case "DNA": // Formato: DNA;id;fecha;secuencia
+                case "DNA": // DNA;id;fecha;secuencia
                     DNASample sample = new DNASample(parts[1], parts[2], parts[3]);
                     genomicService.analyzeDNA(sample);
                     return "SUCCESS: Análisis completado y guardado.";
 
-                case "REPORT": // Formato: REPORT
+                case "REPORT": // REPORT
                     return "SUCCESS;" + genomicService.getHighRiskReport();
 
                 default:
@@ -54,7 +54,7 @@ public class SimpleMessageProcessor implements IMessageProcessor {
     }
 
     private String registerPatient(String[] p) throws DuplicatePatientException, IOException {
-        // Validación mínima de campos
+        // Validación mínima
         if (p.length < 9) return "ERROR: Datos insuficientes para registro";
 
         Patient newPatient = new Patient(p[1], p[2], p[3], Integer.parseInt(p[4]), p[5], p[6], p[7], p[8]);

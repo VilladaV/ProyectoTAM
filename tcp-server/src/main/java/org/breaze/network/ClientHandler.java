@@ -17,18 +17,18 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        // Usamos DataInput/DataOutput para respetar tu diseño original
+        // Us DataInput/DataOutput
         try (
                 DataInputStream in = new DataInputStream(clientSocket.getInputStream());
                 DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream())
         ) {
-            // Leemos el mensaje del cliente
+            // Lee mensaje del cliente
             String clientMessage = in.readUTF();
 
-            // Lo procesamos
+            //  procesa
             String response = processor.process(clientMessage);
 
-            // Enviamos la respuesta
+            // Envia la respuesta
             out.writeUTF(response);
             out.flush();
 

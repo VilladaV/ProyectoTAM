@@ -16,7 +16,7 @@ public class SSLTCPServer implements INetworkService {
 
     @Override
     public void start() {
-        // Usamos el SocketFactory que creamos antes. Pasamos sslConfig a ambos parámetros.
+        //
         try (ServerSocket serverSocket = SocketFactory.createSSLServerSocket(sslConfig, sslConfig)) {
             System.out.println("[Server] Escuchando de forma segura en el puerto: " + sslConfig.getPort());
 
@@ -25,10 +25,10 @@ public class SSLTCPServer implements INetworkService {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("[Server] Nuevo cliente conectado.");
 
-                // REQUISITO OBLIGATORIO: Hilos nativos para concurrencia
+                //  Hilos nativos para concurrencia
                 ClientHandler handler = new ClientHandler(clientSocket, processor);
                 Thread clientThread = new Thread(handler);
-                clientThread.start(); // El hilo atiende, el server vuelve a escuchar arriba
+                clientThread.start(); // El hilo atiende i el server vuelve a escuchar arriba
             }
         } catch (IOException e) {
             System.out.println("[Server] Error critico de E/S: " + e.getMessage());

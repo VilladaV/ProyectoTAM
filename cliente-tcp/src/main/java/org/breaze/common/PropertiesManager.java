@@ -10,11 +10,11 @@ public class PropertiesManager implements IConfigReader{
     public PropertiesManager(String fileName){
         try(InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)){
             if(is == null){
-                throw new RuntimeException("Error: No se encontró el archivo");
+                throw new RuntimeException("Error No se encontro el archivo");
             }
             props.load(is);
         }catch (IOException e){
-            System.out.println("Error critico al leer las propiedades: "+e.getMessage());
+            System.out.println("Error critico al leer  propiedades: "+e.getMessage());
         }
     }
     @Override

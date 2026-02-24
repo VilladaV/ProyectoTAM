@@ -41,12 +41,12 @@ public class GenomicProcessor implements GenomicService {
 
     @Override
     public void checkMutations(DNASample sample) throws IOException {
-        // Obtiene diagnósticos previos para comparar cambios en patrones
+        // O diagnósticos previos para comparar cambios en patrones
         List<String> history = diagnosticRepo.getHistory(sample.getPatientId());
         if (history.isEmpty()) return;
 
-        // Compara si los virus detectados antes siguen en las mismas posiciones
-        // o si hay nuevos rangos de cambios.
+        // Compara si los virus detectados antes siguen iguales
+        // o si hay nuevos rangos cambio.
         System.out.println("Comparando muestra de fecha " + sample.getDate() + " con historial...");
     }
 
@@ -75,7 +75,7 @@ public class GenomicProcessor implements GenomicService {
                 }
             }
 
-            // Condición: más de 3 virus "Altamente Infeccioso"
+            // SI más de 3 virus ltamente Infeccioso
             if (highRiskCount > 3) {
                 report.append(String.format("%s,%d,%d,\"%s\",\"%s\"\n",
                         p.getId(), totalVirus, highRiskCount,
